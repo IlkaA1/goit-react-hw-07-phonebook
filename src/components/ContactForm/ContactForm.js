@@ -1,24 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux';
-
 import { addContact } from 'redux/operations';
-// import { addContact } from 'redux/contactsSlice';
-import { getContakts } from 'redux/selectors';
+import { selectContakts } from 'redux/selectors';
 
 import css from './form.module.css';
-import { nanoid } from 'nanoid';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
-  const { items } = useSelector(getContakts);
+  const { items } = useSelector(selectContakts);
 
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.target;
     const { name, number } = form.elements;
     const newContact = {
-      id: nanoid(),
       name: name.value,
-      number: number.value,
+      phone: number.value,
     };
 
     const nameValue = name.value;
@@ -31,7 +27,7 @@ const ContactForm = () => {
 
     dispatch(addContact(newContact));
 
-    return form.reset();
+    form.reset();
   };
 
   return (

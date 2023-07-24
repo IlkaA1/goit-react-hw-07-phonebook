@@ -3,18 +3,15 @@ import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 
 import css from './app.module.css';
-// import { getError, getIsLoading } from 'redux/selectors';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks } from 'redux/operations';
-import { getContakts } from 'redux/selectors';
+import { selectContakts } from 'redux/selectors';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { items, isLoading, error } = useSelector(getContakts);
-
-  console.log(items);
+  const { items, isLoading, error } = useSelector(selectContakts);
 
   useEffect(() => {
     dispatch(fetchTasks());
@@ -35,5 +32,3 @@ export const App = () => {
     </div>
   );
 };
-
-// JSON.stringify(items, null, 2)}
