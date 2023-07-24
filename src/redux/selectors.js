@@ -1,4 +1,4 @@
-// import { createSelector } from '@reduxjs/toolkit';
+import { createSelector } from '@reduxjs/toolkit';
 
 export const selectContakts = state => state.contacts;
 
@@ -8,19 +8,20 @@ export const selectIsLoading = state => state.contacts.isLoading;
 
 export const selectError = state => state.contacts.error;
 
-// export const selectFilteredContact = createSelector(
-//   [selectContakts, selectStatusFilter],
-//   (contacts, filterQwery) => {
+export const arrContacts = state => state.contacts.items;
 
-//       switch (filterQwery) {
-//           case filterQwery => {
-//               const oneContact = contacts.filter(contact =>
-//                   contact.name
-//                     .toLowerCase()
-//                     .includes(filterQwery.toLowerCase().toString())
-//               );
-//               return oneContact;
-//           }
-//       }
-//   }
-// );
+export const selectVisibleContact = createSelector(
+  [arrContacts, selectStatusFilter],
+  (contacts, filterQwery) => {
+    const qwery = filterQwery.toLowerCase().toString();
+
+    switch (filterQwery) {
+      case filterQwery:
+        return contacts.filter(contact =>
+          contact.name.toLowerCase().includes(qwery)
+        );
+      default:
+        return contacts;
+    }
+  }
+);
